@@ -19,98 +19,88 @@ const ShowProfile = ({ user }) => {
       console.log("Save profile called");
       const updatedFields = { firstName, lastName, gender, age, photoUrl };
 
-      // 2. Make the PATCH request
-      const res = await axios.patch(
-        BASE_URL + "update",
-        updatedFields, // Send the actual data directly
-        {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await axios.patch(BASE_URL + "update", updatedFields, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-      // 3. Handle successful response
       console.log("Update successful:", res.data);
-      dispatch(addUser(res.data.user)); // Assuming your backend returns { user: updatedUser }
+      dispatch(addUser(res.data.user));
     } catch (err) {
       console.error("Update failed:", err.response?.data || err.message);
       setError(err.response?.data?.message || err.message);
     }
   };
-
   return (
-    <div className="flex items-center justify-center px-5  ">
-      <div className="flex justify-center mx-10">
-        <div className="card card-dash bg-base-300 w-96 mt-6">
-          <div className="card-body">
-            <h2 className="card-title justify-center">Login</h2>
+    <div className="flex items-start justify-center gap-10 px-5 mt-6">
+      <div className="card card-dash bg-base-300 w-96 h-[600px]">
+        <div className="card-body overflow-y-auto">
+          <h2 className="card-title justify-center">Login</h2>
+          <label className="mt-2">
+            <span>First Name</span>
+            <input
+              type="text"
+              className="input input-md w-full"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </label>
 
-            <label className=" mt-2">
-              <span>FirstName</span>
-              <input
-                type="text"
-                placeholder=""
-                className="input input-md"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </label>
+          <label className="mt-4">
+            <span>Last Name</span>
+            <input
+              type="text"
+              className="input input-md w-full"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </label>
 
-            <label className=" mt-4">
-              <span>LastName</span>
-              <input
-                type="text"
-                placeholder=""
-                className="input input-md"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </label>
-            <label className=" mt-2">
-              <span>PhotoUrl</span>
-              <input
-                type="text"
-                placeholder=""
-                className="input input-md"
-                value={photoUrl}
-                onChange={(e) => setPhotoUrl(e.target.value)}
-              />
-            </label>
-            <label className=" mt-2">
-              <span>age</span>
-              <input
-                type="text"
-                placeholder=""
-                className="input input-md"
-                value={age}
-                onChange={(e) => setAge(e.target.value)}
-              />
-            </label>
-            <label className=" mt-2">
-              <span>Gender</span>
-              <input
-                type="text"
-                placeholder=""
-                className="input input-md"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-              />
-            </label>
+          <label className="mt-4">
+            <span>Photo URL</span>
+            <input
+              type="text"
+              className="input input-md w-full"
+              value={photoUrl}
+              onChange={(e) => setPhotoUrl(e.target.value)}
+            />
+          </label>
 
-            <div className="card-actions justify-center mt-3">
-              <button onClick={handleSaveProfile} className="btn btn-primary">
-                Save profile
-              </button>
-            </div>
+          <label className="mt-4">
+            <span>Age</span>
+            <input
+              type="text"
+              className="input input-md w-full"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+            />
+          </label>
+
+          <label className="mt-4">
+            <span>Gender</span>
+            <input
+              type="text"
+              className="input input-md w-full"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            />
+          </label>
+
+          <div className="card-actions justify-center mt-5">
+            <button onClick={handleSaveProfile} className="btn btn-primary">
+              Save Profile
+            </button>
           </div>
         </div>
       </div>
-      <div className="mt-10">
-        <ShowFeed
-          user={{ firstName, lastName, gender, age, photoUrl }}
-        ></ShowFeed>
+
+      <div className="card card-dash bg-base-300 w-96 h-[600px]">
+        <div className="card-body overflow-y-auto">
+          <h2 className="card-title justify-center">Profile Preview</h2>
+          <ShowFeed user={{ firstName, lastName, gender, age, photoUrl }} />
+        </div>
       </div>
     </div>
   );
