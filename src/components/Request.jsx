@@ -8,13 +8,14 @@ import ShowRequests from "./ShowRequest";
 const Request = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.request);
+  console.log(requests);
 
   const fetchRequest = async () => {
     try {
       const res = await axios.get(BASE_URL + "user/request/received", {
         withCredentials: true,
       });
-      dispatch(showRequest(res.data.data));
+      dispatch(showRequest(res.data));
     } catch (err) {
       console.error(err);
     }
@@ -29,8 +30,8 @@ const Request = () => {
     <>
       <h1 className="flex justify-center my-5 text-2xl">Requests</h1>
 
-      {requests.map((user) => (
-        <ShowRequests user={user.fromUserId} key={user._id} />
+      {requests.data.map((user) => (
+        <ShowRequests user={user} key={user._id} />
       ))}
     </>
   );
