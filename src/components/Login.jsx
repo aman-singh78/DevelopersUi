@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../constants/constants";
 
 const Login = () => {
-  const [firstName, setFirstName] = useState(" ");
-  const [lastname, setLastName] = useState(" ");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [isLogin, setIsLogin] = useState(true);
-  const [emailId, setEmailId] = useState(" ");
-  const [password, setPassword] = useState(" ");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -33,6 +33,23 @@ const Login = () => {
       console.log(err);
     }
   };
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "signUp",
+        { firstName, lastName, emailId, password },
+        { withCredentials: true }
+      );
+      console.log(res);
+      dispatch(addUser(res.data.data));
+      return navigate("/profile");
+    } catch (err) {
+      setError(err.response?.data?.message || "Something went wrong");
+
+      console.log(err);
+    }
+  };
+
   return (
     <div className="flex justify-center">
       <div className="card card-dash bg-base-300 w-96 mt-6">
@@ -59,7 +76,7 @@ const Login = () => {
                   type="text"
                   placeholder=""
                   className="input input-md"
-                  value={lastname}
+                  value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </label>
@@ -90,7 +107,10 @@ const Login = () => {
           <p className="text-red-600 ">{error}</p>
 
           <div className="card-actions justify-center mt-3">
-            <button className="btn btn-primary" onClick={handleLogin}>
+            <button
+              className="btn btn-primary"
+              onClick={isLogin ? handleLogin : handleSignUp}
+            >
               {isLogin ? "Login" : "SignUp"}
             </button>
           </div>
