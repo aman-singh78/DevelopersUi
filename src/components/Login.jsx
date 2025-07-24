@@ -7,8 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../constants/constants";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("aman@gmail.com");
-  const [password, setPassword] = useState("07aman@$");
+  const [firstName, setFirstName] = useState(" ");
+  const [lastname, setLastName] = useState(" ");
+  const [isLogin, setIsLogin] = useState(true);
+  const [emailId, setEmailId] = useState(" ");
+  const [password, setPassword] = useState(" ");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -34,7 +37,34 @@ const Login = () => {
     <div className="flex justify-center">
       <div className="card card-dash bg-base-300 w-96 mt-6">
         <div className="card-body">
-          <h2 className="card-title justify-center">Login</h2>
+          <h2 className="card-title justify-center">
+            {isLogin ? "SignIn" : "SignUp"}
+          </h2>
+          {!isLogin && (
+            <>
+              <label className=" mt-2">
+                <span>Firstname</span>
+                <input
+                  type="text"
+                  placeholder=""
+                  className="input input-md"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </label>
+
+              <label className=" mt-4">
+                <span>LastName</span>
+                <input
+                  type="text"
+                  placeholder=""
+                  className="input input-md"
+                  value={lastname}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </label>
+            </>
+          )}
 
           <label className=" mt-2">
             <span>Email Id</span>
@@ -61,9 +91,15 @@ const Login = () => {
 
           <div className="card-actions justify-center mt-3">
             <button className="btn btn-primary" onClick={handleLogin}>
-              Login
+              {isLogin ? "Login" : "SignUp"}
             </button>
           </div>
+          <p
+            className="m-auto cursor-pointer py-2"
+            onClick={() => setIsLogin(!isLogin)}
+          >
+            {isLogin ? "New User! Sign up here" : "Existing User! Login here"}
+          </p>
         </div>
       </div>
     </div>
