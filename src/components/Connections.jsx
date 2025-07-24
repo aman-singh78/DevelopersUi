@@ -9,7 +9,6 @@ const Connections = () => {
   const dispatch = useDispatch();
   const [error, setShowError] = useState("");
   const users = useSelector((store) => store.userConnection);
-  console.log(users);
 
   const fetchConnections = async () => {
     try {
