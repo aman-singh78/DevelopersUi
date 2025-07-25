@@ -97,7 +97,7 @@ const Login = () => {
           <label className=" mt-4">
             <span>Password</span>
             <input
-              type="text"
+              type="password"
               placeholder=""
               className="input input-md"
               value={password}
