@@ -8,6 +8,7 @@ import Feed from "./components/Feed";
 import Connections from "./components/Connections";
 import Request from "./components/Request";
 import Chat from "./components/Chat";
+import Premeium from "./components/Premeium";
 function App() {
   return (
     <Provider store={appStore}>
@@ -20,6 +21,7 @@ function App() {
             <Route path="connections" element={<Connections />} />
             <Route path="requests" element={<Request />} />
             <Route path="chat/:targetUserId" element={<Chat />} />
+            <Route path="premeium" element={<Premeium />} />
           </Route>
         </Routes>
       </BrowserRouter>
