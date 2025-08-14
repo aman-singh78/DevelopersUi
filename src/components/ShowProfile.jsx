@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ShowFeed from "./showFeed";
+import ShowFeed from "./ShowFeed";
 import axios from "axios";
 import { BASE_URL } from "../constants/constants";
 import { useDispatch } from "react-redux";

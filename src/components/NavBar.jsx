@@ -4,6 +4,7 @@ import { BASE_URL } from "../constants/constants";
 import { removeUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
